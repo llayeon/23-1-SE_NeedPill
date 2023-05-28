@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     ArrayList<String> daysInMonth;
     CalendarViewHolder calendarViewHolder;
     CalendarAdapter calendarAdapter;
+    private int selectedPosition = -1;
+    private int selectedEmojiId = -1;
     //recyclerview에서 celltext가 현재날짜랑 같은 날 오늘표시
     //getemoji에서 받은 id값으로 cell에 이모티콘 표시
     @Override
@@ -86,12 +88,12 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     public void previousMonthAction(View view){
         selectedDate = selectedDate.minusMonths(1);
         setMonthView();
-   }
+    }
 
-   public void nextMonthAction(View view){
+    public void nextMonthAction(View view){
         selectedDate = selectedDate.plusMonths(1);
         setMonthView();
-   }
+    }
     {}
     @Override
     public void onItemClick(int position, String dayText) {
@@ -100,27 +102,26 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
         }else{
             showMemoDialog(position);
-            //
-            calendarAdapter.attachEmoji(emoji_id,position);
+            //calendarAdapter.notifyDataSetChanged();
         }
     }
-
+    int se_position;
     private void showMemoDialog(int position) {
+        se_position = position;
 
         CustomDialog customDialog = new CustomDialog();
         customDialog.show(getSupportFragmentManager(),"custom dialog");
 
     }
 
+
+
     @Override
     public void applyEmoji(int id) {
-        //저장한 이모티콘 보여주기
-        //position이 ..인 cell에 이모티콘 보여주기
-        //int emoji = id;
-//        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,this);
-//        calendarAdapter.attachEmoji(emoji);
-        //calendarAdapter.attachEmoji(id);
+
         emoji_id=id;
+       calendarAdapter.attachEmoji(emoji_id,se_position,calendarRecyclerView);
+        //calendarAdapter.attachEmoji(emoji_id,selectedPosition,calendarRecyclerView);
     }
 
 }

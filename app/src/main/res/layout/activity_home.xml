@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomButtonMenu"
+        tools:layout_editor_absoluteX="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/alarmListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomButtonMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/deleteAlarmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="deleteButton"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/delete_button"
+            android:background="@color/white"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/addAlarmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="addButton"
+            android:src="@drawable/add_button"
+            android:background="@color/white"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/calendarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="calendarButton"
+            android:src="@drawable/calendar_button"
+            android:background="@color/white"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/bottomNavigationView"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:padding="10dp"-->
+    <!--        app:itemBackground="@color/white"-->
+    <!--        app:labelVisibilityMode="labeled"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:menu="@menu/home_menu_bottom"-->
+    <!--        tools:ignore="MissingConstraints">-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/deleteAlarmButton"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:src="@drawable/delete_button"-->
+    <!--            android:layout_gravity="left"-->
+    <!--            android:contentDescription="deleteButton"/>-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/addAlarmButton"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:src="@drawable/add_button"-->
+    <!--            android:contentDescription="addButton"/>-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/calendarButton"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:src="@drawable/calendar_button"-->
+    <!--            android:layout_gravity="end"-->
+    <!--            android:contentDescription="calendarButton"/>-->
+
+    <!--    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

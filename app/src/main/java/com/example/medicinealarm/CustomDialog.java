@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -26,7 +27,6 @@ public class CustomDialog extends AppCompatDialogFragment {
     RadioButton emoji_normal;
     RadioButton emoji_bad;
     RadioButton emoji_verybad;
-    int selectedId;
 
     //팝업창 크기
 //    public void onResume(){
@@ -35,7 +35,6 @@ public class CustomDialog extends AppCompatDialogFragment {
 //        getDialog().getWindow().setLayout(width,height);
 //        super.onResume();
 //    }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -57,18 +56,11 @@ public class CustomDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         int id = radioGroup.getCheckedRadioButtonId();
 
-                        if(emoji_verygood.getId()==id){
-                            selectedId = id;
-                        }else if(emoji_good.getId() == id){
-                            selectedId = id;
-                        }else if(emoji_normal.getId() == id){
-                            selectedId = id;
-                        }else if(emoji_bad.getId()==id){
-                            selectedId = id;
-                        }else if(emoji_verybad.getId()==id){
-                            selectedId = id;
+                        Log.d("CustomDialog","Selected emojiId : "+id);
+                        if(listener != null){
+                            listener.applyEmoji(id);
                         }
-                        listener.applyEmoji(id);
+
                     }
                 });
 
@@ -79,6 +71,25 @@ public class CustomDialog extends AppCompatDialogFragment {
         emoji_bad = view.findViewById(R.id.emoji_bad);
         emoji_verybad = view.findViewById(R.id.emoji_verybad);
         emoji_normal = view.findViewById(R.id.emoji_normal);
+
+        // 다이얼로그의 크기를 조정하기 위해 Window 객체를 가져옴
+        Window window = builder.create().getWindow();
+        if (window != null) {
+            // WindowManager를 사용하여 다이얼로그의 속성을 설정
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+            params.copyFrom(window.getAttributes());
+
+            // 다이얼로그의 너비와 높이를 설정
+            DisplayMetrics metrics = getResources().getDisplayMetrics();
+            int width = (int) (metrics.widthPixels * 0.9); // 다이얼로그의 너비를 화면 너비의 90%로 설정
+            int height = WindowManager.LayoutParams.WRAP_CONTENT; // 다이얼로그의 높이를 자동으로 조정
+
+            params.width = width;
+            params.height = height;
+
+            // 다이얼로그에 설정된 속성을 적용
+            window.setAttributes(params);
+        }
 
         return builder.create();
     }
@@ -93,8 +104,11 @@ public class CustomDialog extends AppCompatDialogFragment {
         }
 
     }
+
+
+
     public interface CustomDialogListener{
         //선택된 이모티콘 정보 넘기기
-         void applyEmoji(int id);
+        void applyEmoji(int id);
     }
 }
